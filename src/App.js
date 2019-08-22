@@ -2,59 +2,107 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person.js';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Meg', age: 26 }
-    ]
+      { id: '1', name: 'Max', age: 28 },
+      { id: '2', name: 'Manu', age: 29 },
+      { id: '3', name: 'Meg', age: 26 }
+    ],
+    showPersons: false
   }
 
-  swtichNameHandler = (newName) => {
-    //console.log('FIRE!');
-    // this.state.persons[0].name = 'max dude';
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Manu', age: 29 },
-        { name: 'Meg', age: 36 }
-      ]
-    })
+  nameChangeHandler = (event, id) => {
+    const personIdx = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {...this.state.persons[personIdx]};
+
+    //const person = Object.assign({}, this.state.persons[personIdx]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIdx] = person;
+    this.setState({persons: persons});
   }
 
-  nameChangeHandler = (event) => {
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
     this.setState({
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Meg', age: 26 }
-      ]
-    })
+      showPersons: !doesShow
+    });
+  }
+
+  deletePersonHandler = (personIdx) => {
+    //const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIdx, 1);
+    this.setState({persons: persons});
   }
 
   render() {
-    return (
-      <div className="App">
-        <h1>Hello world!</h1>
-        <button onClick={() => this.swtichNameHandler('MAXXXXX!')}>Switch Name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}
-          click={this.swtichNameHandler.bind(this, 'Maxie!!!!')}/>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.swtichNameHandler.bind(this, 'Maxie!!!!')}
-          changed={this.nameChangeHandler}>Hobbies: Racing</Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}
-          click={this.swtichNameHandler.bind(this, 'Maxie!!!!')}/>
-      </div>
-    );
-  }
-}
 
-export default App;
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      font: 'inherit',
+      border: '1x solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }    
+    };
+
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person key={person.id}
+              click={() => this.deletePersonHandler(index)}
+              name={person.name} 
+              age={person.age} 
+              changed={(event) => this.nameChangeHandler(event, person.id)}/>
+          })}
+        </div>
+      );
+
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }    
+    }
+
+    // let classes = ['red', 'bold'].join(' '); //"red bold"
+    let classes = [];
+    if(this.state.persons.length <= 2) {
+      classes.push('red'); //red
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold'); // red bold
+    }
+
+    return (<StyleRoot>
+        <div className="App">
+          <h1>Hello world!</h1>
+          <p className={classes.join(' ')}>Dynamic class example</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>
+            Switch Name
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
+      );
+    }
+  }
+  
+  export default Radium(App);
