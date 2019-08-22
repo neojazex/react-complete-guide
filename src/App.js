@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person.js';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
@@ -51,7 +52,11 @@ class App extends Component {
       font: 'inherit',
       border: '1x solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }    
     };
 
     let persons = null;
@@ -69,6 +74,10 @@ class App extends Component {
       );
 
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }    
     }
 
     // let classes = ['red', 'bold'].join(' '); //"red bold"
@@ -80,19 +89,20 @@ class App extends Component {
       classes.push('bold'); // red bold
     }
 
-    return (
-      <div className="App">
-        <h1>Hello world!</h1>
-        <p className={classes.join(' ')}>Dynamic class example</p>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>
-          Switch Name
-        </button>
-        {persons}
-      </div>
+    return (<StyleRoot>
+        <div className="App">
+          <h1>Hello world!</h1>
+          <p className={classes.join(' ')}>Dynamic class example</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>
+            Switch Name
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
       );
     }
   }
   
-  export default App;
+  export default Radium(App);
