@@ -1,7 +1,7 @@
 import React from 'react';
 import Raduim from 'radium';
 
-import './person.css';
+import './Person.css';
 
 const person = (props) => {
     const style = {
