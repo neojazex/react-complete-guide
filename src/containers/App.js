@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Person from '../components/Persons/Person/Person.js';
 import Radium, { StyleRoot } from 'radium';
