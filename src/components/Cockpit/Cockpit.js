@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import classes from './Cockpit.module.css';
 
 const cockpit = (props) => {
+
+  //errors - see Sections 26-28 for react Hooks
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect')
+  });
 
   // let assignedClasses = ['red', 'bold'].join(' '); //"red bold"
   let assignedClasses = [];
