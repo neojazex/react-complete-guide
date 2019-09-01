@@ -24,7 +24,7 @@ class Persons extends Component {
 
         // return super.shouldComponentUpdate(nextProps, nextState);
         
-        return (nextProps.persons !== this.props.persons);
+        return (nextProps.persons !== this.props.persons); //test
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
