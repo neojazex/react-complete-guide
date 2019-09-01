@@ -7,7 +7,11 @@ const cockpit = (props) => {
   //errors - see Sections 26-28 for react Hooks
   useEffect(() => {
     console.log('[Cockpit.js] useEffect')
-  });
+
+    setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 1000);
+  }, []); //[props.persons] to call on change
 
   // let assignedClasses = ['red', 'bold'].join(' '); //"red bold"
   let assignedClasses = [];
