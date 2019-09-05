@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from "../hoc/WithClass";
+import withClass from "../hoc/withClass";
 
 class App extends Component {
 
@@ -105,7 +105,7 @@ class App extends Component {
     }
 
     return (
-      <WithClass classes={classes.App}>
+      <React.Fragment>
         <button onClick={() =>{
           this.setState({showCockpit: false});
         }}>Remove Cockpit</button>
@@ -116,9 +116,9 @@ class App extends Component {
           personsLength={this.state.persons.length} 
           clicked={this.togglePersonsHandler}/> : null}
         {persons}
-      </WithClass>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
