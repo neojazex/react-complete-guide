@@ -18,7 +18,8 @@ class App extends Component {
       { id: '3', name: 'Meg', age: 26 }
     ],
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changedCounter: 0
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -56,7 +57,11 @@ class App extends Component {
 
     const persons = [...this.state.persons];
     persons[personIdx] = person;
-    this.setState({ persons: persons });
+    this.setState((prevState, props) => {
+      return {
+        persons: persons, changedCounter: prevState.changedCounter + 1
+      };
+    });
   }
 
   togglePersonsHandler = () => {
@@ -106,15 +111,15 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <button onClick={() =>{
-          this.setState({showCockpit: false});
+        <button onClick={() => {
+          this.setState({ showCockpit: false });
         }}>Remove Cockpit</button>
-        {this.state.showCockpit ? 
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          personsLength={this.state.persons.length} 
-          clicked={this.togglePersonsHandler}/> : null}
+        {this.state.showCockpit ?
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler} /> : null}
         {persons}
       </React.Fragment>
     );
