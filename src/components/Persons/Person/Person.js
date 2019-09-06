@@ -7,6 +7,8 @@ import withClass from '../../../hoc/withClass';
 
 import Aux from "../../../hoc/Auxillary"
 
+import AuthContext from "../../../context/auth-context";
+
 class Person extends Component {
     constructor(props) {
         super(props)
@@ -22,7 +24,9 @@ class Person extends Component {
         console.log('[Person.js] rendering...');
         return (//className={classes.Person}
             <React.Fragment>
-                {this.props.isAuth ? <p>Authenticated</p> : <p>Please log in</p>}
+                <AuthContext.Consumer>
+                    {(context) => context.authenticated ? <p>Authenticated</p> : <p>Please log in</p>}
+                </AuthContext.Consumer>
                 <p onClick={this.props.click}>I'm {this.props.name} and i am {this.props.age}</p>
                 <p>{this.props.children}</p>
                 <input
