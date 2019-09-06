@@ -43,7 +43,10 @@ function useCockpit(props) {
         className={btnClass}
         onClick={props.clicked}>
         Switch Name
-            </button>
+      </button>
+      <button onClick={props.login}>
+        Log in
+      </button>
     </div>
   );
 };
