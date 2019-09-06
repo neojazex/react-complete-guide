@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import classes from './Cockpit.module.css';
 
-const cockpit = (props) => {
+function useCockpit(props) {
 
   //errors - see Sections 26-28 for react Hooks
-  // useEffect(() => {
-  //   console.log('[Cockpit.js] useEffect')
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect')
   //   setTimeout(() => {
   //     alert('Saved data to cloud!');
   //   }, 1000);
-  // return () => {
-  //   console.log('[Cockpit.js] cleanup work in useEffect')
-  // }
-  // }, []); //[props.persons] to call on change
+    toggleButtonRef.current.click();
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect')
+    }
+  }, []); //[props.persons] to call on change
 
   // let assignedClasses = ['red', 'bold'].join(' '); //"red bold"
+
+  const toggleButtonRef = useRef(null);
+
   let assignedClasses = [];
 
   let btnClass = '';
@@ -35,6 +39,7 @@ const cockpit = (props) => {
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>Dynamic class example</p>
       <button
+        ref={toggleButtonRef}
         className={btnClass}
         onClick={props.clicked}>
         Switch Name
@@ -43,4 +48,4 @@ const cockpit = (props) => {
   );
 };
 
-export default React.memo(cockpit);
+export default React.memo(useCockpit);
