@@ -7,7 +7,7 @@ import withClass from '../../../hoc/WithClass';
 
 import Aux from "../../../hoc/Auxillary"
 
-import AuthContext from "../../../context/auth-context";
+import AuthContext from "../../../context/Auth-context";
 
 class Person extends Component {
     constructor(props) {

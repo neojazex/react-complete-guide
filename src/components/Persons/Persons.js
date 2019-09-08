@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import Person from './Person/Person'
-import AuthContext from "../../context/auth-context";
+import AuthContext from "../../context/Auth-context";
 
 class Persons extends PureComponent {
 
