@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 
 import classes from './Cockpit.module.css';
 
@@ -21,6 +21,9 @@ function useCockpit(props) {
   // let assignedClasses = ['red', 'bold'].join(' '); //"red bold"
 
   const toggleButtonRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
 
   let assignedClasses = [];
 
@@ -46,11 +49,9 @@ function useCockpit(props) {
         onClick={props.clicked}>
         Switch Name
       </button>
-      <AuthContext.Consumer>
-        {(context) => <button onClick={context.login}>
+        <button onClick={authContext.login}>
           Log in
         </button>}
-      </AuthContext.Consumer>
     </div>
   );
 };
